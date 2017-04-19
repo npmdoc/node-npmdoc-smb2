@@ -1,0 +1,158 @@
+<div class="apidocDiv">
+<style>
+/*csslint
+*/
+.apidocDiv {
+    background: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.apidocDiv a[href] {
+    color: #33f;
+    font-weight: bold;
+    text-decoration: none;
+}
+.apidocDiv a[href]:hover {
+    text-decoration: underline;
+}
+.apidocCodeCommentSpan {
+    background: #bbf;
+    color: #000;
+    display: block;
+}
+.apidocCodeKeywordSpan {
+    color: #d00;
+    font-weight: bold;
+}
+.apidocCodePre {
+    background: #eef;
+    border: 1px solid;
+    color: #777;
+    padding: 5px;
+    white-space: pre-wrap;
+}
+.apidocFooterDiv {
+    margin-top: 20px;
+    text-align: center;
+}
+.apidocModuleLi {
+    margin-top: 10px;
+}
+.apidocSectionDiv {
+    border-top: 1px solid;
+    margin-top: 20px;
+}
+.apidocSignatureSpan {
+    color: #777;
+    font-weight: bold;
+}
+</style>
+<h1>api documentation for
+    <a
+
+        href="https://github.com/bchelli/node-smb2"
+
+    >smb2 (v0.2.7)</a>
+</h1>
+<h4>SMB2 Client</h4>
+<div class="apidocSectionDiv"><a
+    href="#apidoc.tableOfContents"
+    id="apidoc.tableOfContents"
+><h1>table of contents</h1></a><ol>
+
+    <li class="apidocModuleLi"><a href="#apidoc.module.smb2">module smb2</a><ol>
+
+        <li>
+
+            <a class="apidocElementLiA" href="#apidoc.element.smb2.smb2">
+            function <span class="apidocSignatureSpan"></span>smb2
+            <span class="apidocSignatureSpan">(opt)</span>
+            </a>
+
+        </li>
+
+    </ol></li>
+
+</ol></div>
+
+<div class="apidocSectionDiv">
+<h1><a href="#apidoc.module.smb2" id="apidoc.module.smb2">module smb2</a></h1>
+
+
+    <h2>
+        <a href="#apidoc.element.smb2.smb2" id="apidoc.element.smb2.smb2">
+        function <span class="apidocSignatureSpan"></span>smb2
+        <span class="apidocSignatureSpan">(opt)</span>
+        </a>
+    </h2>
+    <ul>
+    <li>description and source-code<pre class="apidocCodePre">smb2 = function (opt){
+
+  opt = opt || {};
+
+  // Parse share-string
+  var matches;
+  if(!opt.share || !(matches = opt.share.match(shareRegExp))){
+    throw new Error(&#x27;the share is not valid&#x27;);
+  }
+
+  // resolve IP from NetBios
+  // this.ip = netBios.resolve(matches[0]);
+  this.ip = matches[1];
+
+  // set default port
+  this.port = opt.port || port;
+
+  // set message id
+  this.messageId = 0;
+
+  // extract share
+  this.share = matches[2];
+
+  // save the full path
+  this.fullPath = opt.share;
+
+  // packet concurrency default 20
+  this.packetConcurrency = opt.packetConcurrency || packetConcurrency;
+
+  // close timeout default 10s
+  if (opt.autoCloseTimeout !== undefined) {
+    this.autoCloseTimeout = opt.autoCloseTimeout
+  } else {
+    this.autoCloseTimeout = autoCloseTimeout
+  }
+
+  // store authentification
+  this.domain   = opt.domain;
+  this.username = opt.username;
+  this.password = opt.password;
+
+  // set session id
+  this.SessionId = Math.floor(Math.random()*256) &#x26; 0xFF;
+
+  // set the process id
+  // https://msdn.microsoft.com/en-us/library/ff470100.aspx
+  this.ProcessId = new Buffer([
+    Math.floor(Math.random()*256) &#x26; 0xFF,
+    Math.floor(Math.random()*256) &#x26; 0xFF,
+    Math.floor(Math.random()*256) &#x26; 0xFF,
+    Math.floor(Math.random()*256) &#x26; 0xFE
+  ]);
+
+  // activate debug mode
+  this.debug = opt.debug;
+
+  // init connection (socket)
+  SMB2Connection.init(this);
+}</pre></li>
+    <li>example usage<pre class="apidocCodePre">n/a</pre></li>
+    </ul>
+
+
+</div>
+
+<div class="apidocFooterDiv">
+    [ this document was created with
+    <a href="https://github.com/kaizhu256/node-utility2" target="_blank">utility2</a>
+    ]
+</div>
+</div>
